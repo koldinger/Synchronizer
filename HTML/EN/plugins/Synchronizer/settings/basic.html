@@ -1,0 +1,55 @@
+[% PROCESS settings/header.html %]
+
+    [% BLOCK dynamicSettingSection %]
+	<div class="settingSection">
+	    [% content %]
+	</div>
+    [% END -%]
+
+    [% BLOCK dynamicSettingGroup %]
+	<div class="settingGroup">
+	    [% IF title %]<div class="prefHead">[% title %]</div>[% END %]
+	    [% IF desc %]<div class="prefDesc hiddenDesc">[% desc %]</div>[% END %]
+	    <div class="prefs">[% content %]&nbsp;</div>
+	</div>
+    [% END -%]
+
+    [% BLOCK dynamicSetting %]
+	[% WRAPPER dynamicSettingSection %]
+	    [% WRAPPER dynamicSettingGroup %]
+		[% content %]
+	    [% END -%]
+	[% END -%]
+    [% END -%]
+
+    [% FOREACH group IN groups %]
+	[% SET gid = group.id %]
+	[% WRAPPER dynamicSettingGroup title=group.name desc="" %]
+	    [% WRAPPER setting title="PLUGIN_SYNCHRONIZER_DELETEGROUP" desc="PLUGIN_SYNCHRONIZER_DELETEGROUP_DESC" %]
+		<input type="checkbox" name="delete.[% gid %]" id="delete.[% gid %]" value="[% gid %]" />
+	    [% END %]
+	    [% WRAPPER settingGroup title="PLUGING_SYNCHRONIZER_SELECT_MASTER" desc="" %]
+		[% FOREACH player IN players %]
+		    [% SET pid = player.id %]
+		    [% WRAPPER dynamicSetting title=player.name %]
+			<select name="sync.[% gid %].[% pid %]">
+			    <option value="0">Unsynchronized</option>
+			    [% FOREACH otherplayer IN players %]
+				[% IF otherplayer.id != player.id %]
+				    <option value="[% otherplayer.id %]">[% otherplayer.name %]</option>
+				[% END %]
+			    [% END %]
+			</select>
+		    [% END %]
+		[% END %]
+	    [% END %]
+	<hr>
+	[% END %]
+    [% END %]
+
+    [% WRAPPER setting title="PLUGIN_SYNCHRONIZER_NEWGROUP" desc="" %]
+	<input type="text" class="stdedit" name="newGroupName" id="newGroupName" value="[% newGroupName %]" size="10" />
+    [% END %]
+
+
+[% PROCESS settings/footer.html %]
