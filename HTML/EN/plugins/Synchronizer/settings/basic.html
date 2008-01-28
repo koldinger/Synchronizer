@@ -22,21 +22,24 @@
 	[% END -%]
     [% END -%]
 
-    [% FOREACH group IN groups %]
-	[% SET gid = group.id %]
-	[% WRAPPER dynamicSettingGroup title=group.name desc="" %]
+    [% FOREACH gid IN groups.keys %]
+	[% WRAPPER dynamicSettingGroup title=groups.$gid desc="" %]
 	    [% WRAPPER setting title="PLUGIN_SYNCHRONIZER_DELETEGROUP" desc="PLUGIN_SYNCHRONIZER_DELETEGROUP_DESC" %]
 		<input type="checkbox" name="delete.[% gid %]" id="delete.[% gid %]" value="[% gid %]" />
 	    [% END %]
-	    [% WRAPPER settingGroup title="PLUGING_SYNCHRONIZER_SELECT_MASTER" desc="" %]
+	    [% WRAPPER settingGroup title="PLUGIN_SYNCHRONIZER_SELECT_MASTER" desc="" %]
 		[% FOREACH player IN players %]
 		    [% SET pid = player.id %]
 		    [% WRAPPER dynamicSetting title=player.name %]
 			<select name="sync.[% gid %].[% pid %]">
-			    <option value="0">Unsynchronized</option>
+			    <option value="0" [% IF player.$gid == 0%]selected[% END %]>
+				[% "PLUGIN_SYNCHRONIZER_UNSYNCHRONIZED" | string %]
+			    </option>
 			    [% FOREACH otherplayer IN players %]
 				[% IF otherplayer.id != player.id %]
-				    <option value="[% otherplayer.id %]">[% otherplayer.name %]</option>
+				    <option value="[% otherplayer.id %]" [% IF otherplayer.id == player.$gid %]selected[% END %]>
+					[% otherplayer.name %]
+				    </option>
 				[% END %]
 			    [% END %]
 			</select>

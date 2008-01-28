@@ -4,7 +4,6 @@ PLUGIN_SYNCHRONIZER_NAME
 PLUGIN_SYNCHRONIZER_DESC
 	EN	Enhanced Player Synchronization Tool
 
-
 PLUGIN_SYNCHRONIZER_SELECT_SYNCSET
 	EN	Select Sync Set
 
@@ -20,5 +19,23 @@ PLUGIN_SYNCHRONIZER_DELETEGROUP
 PLUGIN_SYNCHRONIZER_DELETEGROUP_DESC
     	EN	Check this box and press apply to permanently delete this Sync Set
 
-PLUGING_SYNCHRONIZER_SELECT_MASTER
+PLUGIN_SYNCHRONIZER_SELECT_MASTER
 	EN	Select the player to synchronize each player to.
+
+PLUGIN_SYNCHRONIZER_UNSYNCHRONIZED
+	EN	Unsynchronized (or Master)
+
+PLUGIN_SYNCHRONIZER_NOSYNC
+	EN	Unsynchronize all players
+
+PLUGIN_SYNCHRONIZER_ALLTOME
+	EN	Synchronize all players to this one
+
+PLUGIN_SYNCHRONIZER_SYNCING
+	EN	Synchronizing to %s
+
+PLUGIN_SYNCHRONIZER_SYNCINGTOME
+	EN	Synchronizing all players to this one
+
+PLUGIN_SYNCHRONIZER_UNSYNCING
+	EN	Unsynchronizing all players

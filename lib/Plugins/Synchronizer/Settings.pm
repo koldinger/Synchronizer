@@ -17,43 +17,38 @@ my $log   = logger('plugin.synchronizer');
 my @playerList;
 
 sub name {
-    $log->debug("Synchronizer::Settings->name() called");
     return Slim::Web::HTTP::protectName('PLUGIN_SYNCHRONIZER_NAME');
 }
 
 sub page {
-    $log->debug("Synchronizer::Settings->page() called");
     return Slim::Web::HTTP::protectURI('plugins/Synchronizer/settings/basic.html');
 }
 
 sub handler {
     my ($class, $client, $params) = @_;
     $log->debug("Synchronizer::Settings->handler() called. " . + $params->{'saveSettings'});
-    ###### DEBUG
-    foreach my $key (keys %$params)
-    {
-	$log->debug("Synchronizer::Settings->handler(): Key: " . $key . " :: " . $params->{$key});
-    }
-    ###### DEBUG
     if ($params->{'saveSettings'})
     {
 	$log->debug("Synchronizer::Settings->handler() save settings");
-	$log->debug("NewGroupName: " . $params->{'newGroupName'});
 	if ((defined $params->{'newGroupName'}) && ($params->{'newGroupName'} ne ''))
 	{
 	    addGroup($params);
 	}
-	$log->debug("Groups: " . $params->{'groups'});
-	foreach my $group (@{ $prefs->get('groups') })
+	#$log->debug("Groups: " . $params->{'groups'});
+	my %groups = % { $prefs->get('groups') } if (defined $prefs->get('groups'));
+	foreach my $group (keys %groups) 
 	{
-	    $log->debug("Checking group " . $group->{'name'} . "::" . $group->{'id'});
-	    my $id = $group->{'id'};
-	    my $dKey = "delete.$id";
-	    $log->debug("DeleteKey $dKey");
-	    if ($params->{"delete.$id"})
+	    $log->debug("Checking group " . $groups{$group} . "::" . $group);
+	    my $dKey = "delete.$group";
+	    if ($params->{"delete.$group"})
 	    {
-		deleteGroup($id);
-	    } 
+		deleteGroup($group);
+	    } else {
+		foreach my $client (Slim::Player::Client::clients()) {
+		    my $tag = "sync.$group." . $client->id();
+		    $prefs->client($client)->set($group, $params->{$tag});
+		}
+	    }
 	}
     }
     $params->{'newGroupName'} = undef;
@@ -67,39 +62,44 @@ sub handler {
 sub addGroup {
     my $params = shift;
 
-    my @groups = ( );
+    my %groups;
 
     ## Compute the ID of the new group
-    my $lastID = $prefs->get('lastID') + 1;
+    my $lastID = ($prefs->get('lastID') || 0) + 1;
     $prefs->set('lastID', $lastID);
 
-    @groups = @ { $prefs->get('groups') } if (defined $prefs->get('groups'));
+    %groups = % { $prefs->get('groups') };
 
-    my $group = { 'id' => $lastID, 'name' => $params->{'newGroupName'} };
+    $groups{$lastID} = $params->{'newGroupName'};
 
-    push @groups, \$group;
-
-    $log->debug("Adding group " . $params->{'newGroupName'} . "  Now " . $#groups . " groups");
-    $prefs->set('groups', \@groups);
+    $log->debug("Adding group " . $params->{'newGroupName'} . "  Code: " . $lastID);
+    $prefs->set('groups', \%groups);
 }
 
 sub makePlayerList {
     @playerList = ();
     foreach my $client (Slim::Player::Client::clients()) {
-	$log->debug("Adding " . $client->name() . "::" . $client->id());
+	my $clientPrefs = $prefs->client($client);
 	my $player = { "name" => $client->name(), "id" => $client->id() };
+	my %groups = % { $prefs->get('groups') };
+	foreach my $group (keys %groups)  {
+	    $player->{ $group } = ($clientPrefs->get($group) || 0);
+	}
 	push @playerList, $player;
     }
 }
 
 sub deleteGroup {
     my $del = shift;
-    $log->debug("DeleteGroup: " . $del);
-    my @groups = @ { $prefs->get('groups') } if (defined $prefs->get('groups'));
-    for (my $i = 0; $i < $#groups; $i++)
-    {
-	delete @groups[$i] if ($groups[$i]->{'id'} == $del);
+
+    return unless defined $prefs->get('groups');
+
+    my %groups = % { $prefs->get('groups') };
+    $log->debug("Deleting " . $groups{$del});
+    delete $groups{$del};
+    $prefs->set('groups', \%groups);
+    foreach my $client (Slim::Player::Client::clients()) {
+	$prefs->client($client)->remove($del);
     }
-    $prefs->set('groups', \@groups);
 }
 1;
