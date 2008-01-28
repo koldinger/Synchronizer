@@ -28,13 +28,13 @@ use Plugins::Synchronizer::Settings;
 
 # Export the version to the server
 use vars qw($VERSION);
-$VERSION = "0.1";
+$VERSION = "0.2";
 
 my %positions;
 
 my $log = Slim::Utils::Log->addLogCategory({
     'category' => 'plugin.synchronizer',
-    'defaultLevel' => 'DEBUG',
+    'defaultLevel' => 'ERROR',
     'description' => 'PLUGIN_SYNCHRONIZER_NAME'
 });
 
@@ -125,13 +125,18 @@ sub synchronizeSet {
     my %groups = % {$prefs->get('groups')};
     my @keys = sort {$a <=> $b} keys %groups;
     my $setID = $keys[$set];
+    synchronizeGroup($setID);
+}
+
+sub synchronizeGroup {
+    my $group = shift;
     ## Clear all the synchronization.
     unsyncAll();
 
     foreach my $client (Slim::Player::Client::clients())
     {
-	my $masterId = $prefs->client($client)->get($setID) || 0;;
-	$log->debug("Synchronizing " . $client->name() . " SetID " . $setID . " to MasterID " .  $masterId);
+	my $masterId = $prefs->client($client)->get($group) || 0;;
+	$log->debug("Synchronizing " . $client->name() . " SetID " . $group . " to MasterID " .  $masterId);
 	if (defined $masterId) {
 	    my $master = Slim::Player::Client::getClient($masterId);
 	    if (defined $master) {
@@ -140,6 +145,12 @@ sub synchronizeSet {
 	    }
 	}
     }
+}
+
+sub synchronize {
+    my $class = shift;
+    my $group = shift;
+    synchronizeGroup($group);
 }
 
 sub unsyncAll {

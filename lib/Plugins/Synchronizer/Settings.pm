@@ -11,6 +11,7 @@ use base qw(Slim::Web::Settings);
 use Slim::Utils::Log;
 use Slim::Utils::Prefs;
 use Slim::Player::Client;
+use Plugins::Synchronizer::Plugin;
 
 my $prefs = preferences('plugin.synchronizer');
 my $log   = logger('plugin.synchronizer');
@@ -26,7 +27,7 @@ sub page {
 
 sub handler {
     my ($class, $client, $params) = @_;
-    $log->debug("Synchronizer::Settings->handler() called. " . + $params->{'saveSettings'});
+    $log->debug("Synchronizer::Settings->handler() called.");
     if ($params->{'saveSettings'})
     {
 	$log->debug("Synchronizer::Settings->handler() save settings");
@@ -34,7 +35,6 @@ sub handler {
 	{
 	    addGroup($params);
 	}
-	#$log->debug("Groups: " . $params->{'groups'});
 	my %groups = % { $prefs->get('groups') } if (defined $prefs->get('groups'));
 	foreach my $group (keys %groups) 
 	{
@@ -49,6 +49,10 @@ sub handler {
 		    $prefs->client($client)->set($group, $params->{$tag});
 		}
 	    }
+	}
+	if (defined $params->{'selectGroup'})
+	{
+	    selectGroup($params->{'selectGroup'});
 	}
     }
     $params->{'newGroupName'} = undef;
@@ -87,6 +91,12 @@ sub makePlayerList {
 	}
 	push @playerList, $player;
     }
+}
+
+sub selectGroup {
+    my $group = shift;
+    $log->debug("Selecting synchronization group: " . $group);
+    Plugins::Synchronizer::Plugin->synchronize($group);
 }
 
 sub deleteGroup {

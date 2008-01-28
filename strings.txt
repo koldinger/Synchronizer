@@ -13,11 +13,14 @@ PLUGIN_SYNCHRONIZER_STARTING
 PLUGIN_SYNCHRONIZER_NEWGROUP
 	EN	Add a new Sync Set
 
+PLUGIN_SYNCHRONIZER_NEWGROUP_DESC
+	EN	Add a name, and press Apply to create a new Sync Set.  Then edit the group to get the details correct.
+
 PLUGIN_SYNCHRONIZER_DELETEGROUP
 	EN	Delete this Sync Set
 
 PLUGIN_SYNCHRONIZER_DELETEGROUP_DESC
-    	EN	Check this box and press apply to permanently delete this Sync Set
+	EN	Check this box and press Apply to permanently delete this Sync Set
 
 PLUGIN_SYNCHRONIZER_SELECT_MASTER
 	EN	Select the player to synchronize each player to.
@@ -39,3 +42,10 @@ PLUGIN_SYNCHRONIZER_SYNCINGTOME
 
 PLUGIN_SYNCHRONIZER_UNSYNCING
 	EN	Unsynchronizing all players
+
+PLUGIN_SYNCHRONIZER_SELECT_THIS
+	EN	Synchronize to this Sync Set
+
+PLUGIN_SYNCHRONIZER_SELECT_DESC
+	EN	Check this radio button, and press Apply to synchronize to this set.  Any changes made on this page will be reflected in the Sync Set.
+
