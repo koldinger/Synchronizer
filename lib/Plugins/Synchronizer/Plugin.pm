@@ -28,7 +28,7 @@ use Plugins::Synchronizer::Settings;
 
 # Export the version to the server
 use vars qw($VERSION);
-$VERSION = "0.2";
+$VERSION = "0.3";
 
 my %positions;
 
@@ -151,6 +151,12 @@ sub synchronize {
     my $class = shift;
     my $group = shift;
     synchronizeGroup($group);
+}
+
+sub syncToMaster {
+    my $class = shift;
+    my $master = shift;
+    syncToMe($master);
 }
 
 sub unsyncAll {

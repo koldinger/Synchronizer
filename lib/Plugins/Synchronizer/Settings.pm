@@ -52,7 +52,7 @@ sub handler {
 	}
 	if (defined $params->{'selectGroup'})
 	{
-	    selectGroup($params->{'selectGroup'});
+	    selectGroup($params->{'selectGroup'}, $params->{'master'});
 	}
     }
     $params->{'newGroupName'} = undef;
@@ -95,8 +95,21 @@ sub makePlayerList {
 
 sub selectGroup {
     my $group = shift;
-    $log->debug("Selecting synchronization group: " . $group);
-    Plugins::Synchronizer::Plugin->synchronize($group);
+    my $masterId = shift;
+    $log->debug("Selecting synchronization group: " . $group . ", " . $masterId);
+    if ($group eq "all")
+    {
+	my $master = Slim::Player::Client::getClient($masterId);
+	$log->debug("Syncing to master: " . $masterId . " " . $master->name());
+	Plugins::Synchronizer::Plugin->syncToMaster($master);
+    } elsif ($group eq "none")
+    {
+	Plugins::Synchronizer::Plugin->unsyncAll();
+    }
+    else
+    {
+	Plugins::Synchronizer::Plugin->synchronize($group);
+    }
 }
 
 sub deleteGroup {

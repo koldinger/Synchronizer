@@ -13,8 +13,11 @@ PLUGIN_SYNCHRONIZER_STARTING
 PLUGIN_SYNCHRONIZER_NEWGROUP
 	EN	Add a new Sync Set
 
+PLUGIN_SYNCHRONIZER_NEWGROUP_NAME
+	EN	New set name
+
 PLUGIN_SYNCHRONIZER_NEWGROUP_DESC
-	EN	Add a name, and press Apply to create a new Sync Set.  Then edit the group to get the details correct.
+	EN	Enter the name of the new sync set, and press Apply to create it.  Then edit the sync set in the area above to get the details correct.
 
 PLUGIN_SYNCHRONIZER_DELETEGROUP
 	EN	Delete this Sync Set
@@ -23,7 +26,7 @@ PLUGIN_SYNCHRONIZER_DELETEGROUP_DESC
 	EN	Check this box and press Apply to permanently delete this Sync Set
 
 PLUGIN_SYNCHRONIZER_SELECT_MASTER
-	EN	Select the player to synchronize each player to.
+	EN	Select player's to synchronize to.
 
 PLUGIN_SYNCHRONIZER_UNSYNCHRONIZED
 	EN	Unsynchronized (or Master)
@@ -49,3 +52,17 @@ PLUGIN_SYNCHRONIZER_SELECT_THIS
 PLUGIN_SYNCHRONIZER_SELECT_DESC
 	EN	Check this radio button, and press Apply to synchronize to this set.  Any changes made on this page will be reflected in the Sync Set.
 
+PLUGIN_SYNCHRONIZER_SYNCALL
+	EN	Synchronize all players to one master.
+
+PLUGIN_SYNCHRONIZER_SYNCALL_DESC
+	EN	Check this box to synchronize all players to a specified master.  Select the master player below.
+
+PLUGIN_SYNCHRONIZE_SELECTMASTER
+	EN	Master player.
+
+PLUGIN_SYNCHRONIZE_SELECTMASTER_DESC
+	EN	Select the player you wish to synchronize all players to.  If you aren't particular, just leave as is and the first player in the list will be used.
+
+PLUGIN_SYNCRONIZER_GENERAL
+	EN	Synchronization without using sets.
