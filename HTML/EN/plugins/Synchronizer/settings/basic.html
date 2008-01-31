@@ -6,8 +6,6 @@
 	[% WRAPPER settingGroup title="PLUGIN_SYNCRONIZER_GENERAL" %]
 	    [% WRAPPER setting title="PLUGIN_SYNCHRONIZER_SYNCALL" desc="PLUGIN_SYNCHRONIZER_SYNCALL_DESC" %]
 		<input type="radio" name="selectGroup" id="selectGroup" value="all"/>
-	    [% END %]
-	    [% WRAPPER setting title="PLUGIN_SYNCHRONIZE_SELECTMASTER" desc="PLUGIN_SYNCHRONIZE_SELECTMASTER_DESC" %]
 		<select name="master" id="master"/>
 		    [% FOREACH player IN players %]
 			<option value="[% player.id %]"> [% player.name %] </option>
