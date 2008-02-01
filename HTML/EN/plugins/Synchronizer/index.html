@@ -1,0 +1,29 @@
+[% pagetitle = 'PLUGIN_SYNCHRONIZER_NAME' | string %]
+[% pageHeaderMenu = BLOCK %]
+	/ [% 'PLUGIN_SYNCHRONIZER_NAME' | string %]
+[% END %]
+[% PROCESS pageheader.html %]
+    <form>
+	[% WRAPPER setting title="PLUGIN_SYNCHRONIZER_SYNCALL" desc="PLUGIN_SYNCHRONIZER_SYNCALL_DESC" %]
+	    <input type="radio" name="selectGroup" id="selectGroup" value="all"/>
+	    <select name="master" id="master"/>
+		[% FOREACH player IN players %]
+		    <option value="[% player.id %]"> [% player.name %] </option>
+		[% END %]
+	    </select>
+	[% END %]
+
+
+	[% FOREACH gid IN groups.keys %]
+	    [% WRAPPER setting title=groups.$gid %]
+		<input type="radio" name="selectGroup" id="selectGroup" value="[% gid %]"/>
+	    [% END %]
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_SYNCHRONIZER_NOSYNC" desc="" %]
+	    <input type="radio" name="selectGroup" id="selectGroup" value="none"/>
+	[% END %]
+	<input type="submit" class="stdclick" value="[% 'PLUGIN_SYNCHRONIZER_DOIT' | string %]"/>
+    </form>
+
+[% PROCESS pagefooter.html %]
