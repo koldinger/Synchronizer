@@ -1,59 +1,28 @@
 [% PROCESS settings/header.html %]
     <!--
-      First a section which says "sync everything to this player"
-      -->
-    [% WRAPPER settingSection %]
-	[% WRAPPER settingGroup title="PLUGIN_SYNCRONIZER_GENERAL" %]
-	    [% WRAPPER setting title="PLUGIN_SYNCHRONIZER_SYNCALL" desc="PLUGIN_SYNCHRONIZER_SYNCALL_DESC" %]
-		<input type="radio" name="selectGroup" id="selectGroup" value="all"/>
-		<select name="master" id="master"/>
-		    [% FOREACH player IN players %]
-			<option value="[% player.id %]"> [% player.name %] </option>
-		    [% END %]
-		</select>
-	    [% END %]
-	[% END %]
-	<!--
-	  Now, An Unsynch everything button.
-	  -->
-	[% WRAPPER settingGroup %]
-	    [% WRAPPER setting title="PLUGIN_SYNCHRONIZER_NOSYNC" desc="" %]
-		<input type="radio" name="selectGroup" id="selectGroup" value="none"/>
-	    [% END %]
-	[% END %]
-    <hr>
-    [% END %]
-
-
-    <!--
       Now, controls for each group.  Allowing changing the group, synchronizing to that group, or deleting the group.
       -->
     [% FOREACH gid IN groups.keys %]
 	[% WRAPPER settingSection title=groups.$gid desc="" %]
 	    [% WRAPPER settingGroup title=groups.$gid desc="" %]
-		[% WRAPPER settingGroup title="PLUGIN_SYNCHRONIZER_SELECT_THIS" desc="PLUGIN_SYNCHRONIZER_SELECT_DESC" %]
-		    <input type="radio" name="selectGroup" id="selectGroup" value="[% gid %]"/>
-		[% END %]
-		[% WRAPPER settingGroup title="PLUGIN_SYNCHRONIZER_SELECT_MASTER" desc="" %]
-		    [% FOREACH player IN players %]
-			[% SET pid = player.id %]
-			[% WRAPPER setting title=player.name %]
-			    <select name="sync.[% gid %].[% pid %]" id="sync.[% gid %].[% pid %]">
-				<option value="0" [% IF player.$gid == 0%]selected[% END %]>
-				    [% "PLUGIN_SYNCHRONIZER_UNSYNCHRONIZED" | string %]
-				</option>
-				[% FOREACH otherplayer IN players %]
-				    [% IF otherplayer.id != player.id %]
-					<option value="[% otherplayer.id %]" [% IF otherplayer.id == player.$gid %]selected[% END %]>
-					    [% otherplayer.name %]
-					</option>
-				    [% END %]
+		[% FOREACH player IN players %]
+		    [% SET pid = player.id %]
+		    [% WRAPPER setting title=player.name %]
+			<select name="sync.[% gid %].[% pid %]" id="sync.[% gid %].[% pid %]">
+			    <option value="0" [% IF player.$gid == 0%]selected[% END %]>
+				[% "PLUGIN_SYNCHRONIZER_UNSYNCHRONIZED" | string %]
+			    </option>
+			    [% FOREACH otherplayer IN players %]
+				[% IF otherplayer.id != player.id %]
+				    <option value="[% otherplayer.id %]" [% IF otherplayer.id == player.$gid %]selected[% END %]>
+					[% otherplayer.name %]
+				    </option>
 				[% END %]
-			    </select>
-			[% END %]
+			    [% END %]
+			</select>
 		    [% END %]
 		[% END %]
-		[% WRAPPER settingGroup title="PLUGIN_SYNCHRONIZER_DELETEGROUP" desc="PLUGIN_SYNCHRONIZER_DELETEGROUP_DESC" %]
+		[% WRAPPER setting title="PLUGIN_SYNCHRONIZER_DELETEGROUP" desc="PLUGIN_SYNCHRONIZER_DELETEGROUP_DESC" %]
 		    <input type="checkbox" name="delete.[% gid %]" id="delete.[% gid %]" value="[% gid %]" />
 		[% END %]
 	    [% END %]
@@ -68,5 +37,4 @@
 	    [% END %]
 	[% END %]
     [% END %]
-
 [% PROCESS settings/footer.html %]
