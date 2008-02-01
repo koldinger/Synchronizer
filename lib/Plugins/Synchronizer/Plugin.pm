@@ -28,7 +28,7 @@ use Plugins::Synchronizer::Settings;
 
 # Export the version to the server
 use vars qw($VERSION);
-$VERSION = "0.3";
+$VERSION = "0.4";
 
 my %positions;
 
@@ -82,7 +82,78 @@ my %functions = (
     },
 );
 
-sub syncSet {
+
+sub initPlugin {
+    my $class = shift;
+    $class->SUPER::initPlugin(@_);
+    $log->info(string('PLUGIN_SYNCHRONIZER_STARTING') . " -- $VERSION");
+    if (!defined($prefs->get('groups')))
+    {
+	my %groups;
+	$prefs->set('groups', \%groups);
+    }
+    Plugins::Synchronizer::Settings->new();
+}
+
+sub webPages {
+    $log->debug("webPages called");
+
+    my $index = 'plugins/Synchronizer/index.html';
+
+    # Slim::Web::HTTP::protectURI($index);
+
+    Slim::Web::Pages->addPageLinks("plugins", { 'PLUGIN_SYNCHRONIZER_NAME' => $index } );
+    Slim::Web::HTTP::addPageFunction($index, \&webHandleIndex);
+}
+
+####
+### Other Functions
+####
+
+sub webHandleIndex {
+    my ($client, $params) = @_;
+    $log->debug("Synchronizer->webHandleIndex() called.");
+    my @playerList = ();
+    foreach my $client (Slim::Player::Client::clients()) {
+	my $player = { "name" => $client->name(), "id" => $client->id() };
+	push @playerList, $player;
+    }
+
+    if (defined $params->{'selectGroup'})
+    {
+	selectGroup($params->{'selectGroup'}, $params->{'master'});
+    }
+
+    $params->{'groups'} = $prefs->get('groups');
+    $params->{'players'} = \@playerList;
+    return Slim::Web::HTTP::filltemplatefile('plugins/Synchronizer/index.html', $params);
+
+}
+
+sub selectGroup {
+    my $group = shift;
+    my $masterId = shift;
+    $log->debug("Selecting synchronization group: " . $group . ", " . $masterId);
+    if ($group eq "all")
+    {
+	my $master = Slim::Player::Client::getClient($masterId);
+	$log->debug("Syncing to master: " . $masterId . " " . $master->name());
+	syncToMe($master);
+    } elsif ($group eq "none")
+    {
+	unsyncAll();
+    }
+    else
+    {
+	synchronizeGroup($group);
+    }
+}
+
+####
+###  Functions that do the actual processing
+###$
+
+sub syncSetName {
     my $setNum = shift;
     my $numSets = numSets();
     if ($setNum < $numSets)
@@ -98,14 +169,14 @@ sub syncSet {
 sub doSynchronize {
     my $client = shift;
     my $setNum = $positions{$client};
-    $log->debug("doSynchronize: $setNum ::" . syncSet($setNum));
+    $log->debug("doSynchronize: $setNum ::" . syncSetName($setNum));
 
     my $line1 = string('PLUGIN_SYNCHRONIZER_NAME');
     my $line2;
     my $numSets = numSets();
     if ($setNum < $numSets)
     {
-	$line2 = string('PLUGIN_SYNCHRONIZER_SYNCING', syncSet($setNum));
+	$line2 = string('PLUGIN_SYNCHRONIZER_SYNCING', syncSetName($setNum));
 	$client->showBriefly({'line1' => $line1, 'line2' => $line2});
 	synchronizeSet($setNum);
     } elsif ($setNum == $numSets) {
@@ -121,7 +192,7 @@ sub doSynchronize {
 
 sub synchronizeSet {
     my $set = shift;
-    $log->debug("Synchronizing to set $set: " . syncSet($set));
+    $log->debug("Synchronizing to set $set: " . syncSetName($set));
     my %groups = % {$prefs->get('groups')};
     my @keys = sort {$a <=> $b} keys %groups;
     my $setID = $keys[$set];
@@ -145,18 +216,6 @@ sub synchronizeGroup {
 	    }
 	}
     }
-}
-
-sub synchronize {
-    my $class = shift;
-    my $group = shift;
-    synchronizeGroup($group);
-}
-
-sub syncToMaster {
-    my $class = shift;
-    my $master = shift;
-    syncToMe($master);
 }
 
 sub unsyncAll {
@@ -186,21 +245,10 @@ sub lines {
     my ($line1, $line2);
     $log->debug("Generating lines for " . $client->name() . ": $positions{$client}");
     $line1 = string('PLUGIN_SYNCHRONIZER_SELECT_SYNCSET');
-    $line2 = syncSet($positions{$client});
+    $line2 = syncSetName($positions{$client});
     return { 'line1' => $line1, 'line2' => $line2 };
 }
 
-sub initPlugin {
-    my $class = shift;
-    $class->SUPER::initPlugin(@_);
-    $log->info(string('PLUGIN_SYNCHRONIZER_STARTING') . " -- $VERSION");
-    if (!defined($prefs->get('groups')))
-    {
-	my %groups;
-	$prefs->set('groups', \%groups);
-    }
-    Plugins::Synchronizer::Settings->new();
-}
 
 sub numSets {
     my $sets = keys(% {$prefs->get('groups')});
