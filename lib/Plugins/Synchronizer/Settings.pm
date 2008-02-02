@@ -89,7 +89,6 @@ sub makePlayerList {
     }
 }
 
-
 sub deleteGroup {
     my $del = shift;
 

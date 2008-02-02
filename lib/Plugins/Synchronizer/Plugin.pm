@@ -127,7 +127,6 @@ sub webHandleIndex {
     $params->{'groups'} = $prefs->get('groups');
     $params->{'players'} = \@playerList;
     return Slim::Web::HTTP::filltemplatefile('plugins/Synchronizer/index.html', $params);
-
 }
 
 sub selectGroup {
