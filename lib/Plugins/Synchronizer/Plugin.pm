@@ -28,7 +28,7 @@ use Plugins::Synchronizer::Settings;
 
 # Export the version to the server
 use vars qw($VERSION);
-$VERSION = "0.4";
+$VERSION = "0.5";
 
 my %positions;
 
@@ -114,6 +114,10 @@ sub webHandleIndex {
     my ($client, $params) = @_;
     $log->debug("Synchronizer->webHandleIndex() called.");
     my @playerList = ();
+    #foreach my $key (keys %{$params})
+    #{
+    #	$log->debug("$key :: " . $params->{$key});
+    #    }
     foreach my $client (Slim::Player::Client::clients()) {
 	my $player = { "name" => $client->name(), "id" => $client->id() };
 	push @playerList, $player;

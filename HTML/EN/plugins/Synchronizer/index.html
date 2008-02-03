@@ -7,12 +7,11 @@
 	[% WRAPPER setting title="PLUGIN_SYNCHRONIZER_SYNCALL" desc="PLUGIN_SYNCHRONIZER_SYNCALL_DESC" %]
 	    <input type="radio" name="selectGroup" id="selectGroup" value="all"/>
 	    <select name="master" id="master"/>
-		[% FOREACH player IN players %]
-		    <option value="[% player.id %]"> [% player.name %] </option>
+		[% FOREACH p IN players %]
+		    <option value="[% p.id %]" [% IF player == p.id %]selected[% END %]> [% p.name %] </option>
 		[% END %]
 	    </select>
 	[% END %]
-
 
 	[% FOREACH gid IN groups.keys %]
 	    [% WRAPPER setting title=groups.$gid %]
