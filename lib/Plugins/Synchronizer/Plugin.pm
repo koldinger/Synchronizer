@@ -28,7 +28,7 @@ use Plugins::Synchronizer::Settings;
 
 # Export the version to the server
 use vars qw($VERSION);
-$VERSION = "0.5";
+$VERSION = "0.6";
 
 my %positions;
 
@@ -207,8 +207,12 @@ sub synchronizeGroup {
     ## Clear all the synchronization.
     unsyncAll();
 
+    my $powerOn = $prefs->get('powerup');
+    $log->debug("Synchronizing to group " . $group . " powerOn " . $powerOn);
+
     foreach my $client (Slim::Player::Client::clients())
     {
+	$client->power(1) if ($powerOn);
 	my $masterId = $prefs->client($client)->get($group) || 0;;
 	$log->debug("Synchronizing " . $client->name() . " SetID " . $group . " to MasterID " .  $masterId);
 	if (defined $masterId) {
@@ -232,12 +236,15 @@ sub unsyncAll {
 
 sub syncToMe {
     my $client = shift;
+    my $powerOn = $prefs->get('powerup');
     $log->debug("Syncing everyone to " . $client->name());
     # unsyncAll();
+    $client->power(1) if ($powerOn);
     foreach my $buddy (Slim::Player::Client::clients())
     {
 	if ($client ne $buddy) {
-	    $log->debug("Synchronizing " . $buddy->name() . " to " .  $client->name());
+	    $log->debug("Synchronizing " . $buddy->name() . " to " .  $client->name() . " PowerON: " . $powerOn);
+	    $buddy->power(1) if ($powerOn);
 	    Slim::Player::Sync::sync($buddy, $client);
 	}
     }

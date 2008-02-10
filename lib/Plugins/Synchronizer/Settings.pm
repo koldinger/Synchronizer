@@ -25,6 +25,10 @@ sub page {
     return Slim::Web::HTTP::protectURI('plugins/Synchronizer/settings/basic.html');
 }
 
+sub prefs {
+    return ($prefs, qw(powerup));
+}
+
 sub handler {
     my ($class, $client, $params) = @_;
     $log->debug("Synchronizer::Settings->handler() called.");

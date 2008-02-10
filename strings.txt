@@ -69,3 +69,10 @@ PLUGIN_SYNCHRONIZE_SELECTMASTER_DESC
 
 PLUGIN_SYNCRONIZER_GENERAL
 	EN	Synchronization without using sets.
+
+PLUGIN_SYNCHRONIZER_POWERUP
+	EN	Power on players when synchronizing.
+
+PLUGIN_SYNCHRONIZER_POWERUP_DESC
+	EN	Check this to power on all players when starting synchronization.
+
