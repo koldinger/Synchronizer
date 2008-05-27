@@ -1,41 +1,50 @@
 [% pagetitle = 'PLUGIN_SYNCHRONIZER_NAME' | string %]
 [%- pwd_list = BLOCK -%]/
-    <a href="[% webroot %][% path %]?player=[% player | uri %]">
-                [% "PLUGIN_SYNCHRONIZER_NAME" | string %]
-    </a>
+	<a href="[% webroot %][% path %]?player=[% player | uri %]">
+				[% "PLUGIN_SYNCHRONIZER_NAME" | string %]
+	</a>
 [% END -%]
 
 [% PROCESS pageheader.html %]
-    <form>
-	<table>
-	    <tr>
-		<td>
-		    <input type="radio" name="selectGroup" id="selectGroup" value="all"/>
-		</td>
-		<td> [% "PLUGIN_SYNCHRONIZER_SYNCALL" | string %]
-		    <select name="master" id="master"/>
-		    [% FOREACH p IN players %]
-			<option value="[% p.id %]" [% IF player == p.id %]selected[% END %]> [% p.name %] </option>
-		    [% END %]
-		    </select>
-		</td>
-	    <tr>
+	<form>
+		<table>
+			<tr>
+				<td>
+					<input type="radio" name="selectGroup" id="selectGroup" value="all"/>
+				</td>
+				<td> [% "PLUGIN_SYNCHRONIZER_SYNCALL" | string %]
+					<select name="master" id="master"/>
+					[% FOREACH p IN players %]
+						<option value="[% p.id %]" [% IF player == p.id %]selected[% END %]> [% p.name %] </option>
+					[% END %]
+					</select>
+				</td>
+			<tr>
 
 
-	[% FOREACH gid IN groups.keys %]
-	    <tr>
-		<td> <input type="radio" name="selectGroup" id="selectGroup" value="[% gid %]"/> </td>
-		<td> [% groups.$gid %] </td>
-	    </tr>
-	[% END %]
+		[% FOREACH gid IN groups.keys %]
+			<tr>
+				<td> <input type="radio" name="selectGroup" id="selectGroup" value="[% gid %]"/> </td>
+				<td> [% groups.$gid %] </td>
+			</tr>
+		[% END %]
 
-	    <tr>
-		<td> <input type="radio" name="selectGroup" id="selectGroup" value="none"/> </td>
-		<td> [% "PLUGIN_SYNCHRONIZER_NOSYNC" | string %] </td>
-	    </tr>
-	</table>
+			<tr>
+				<td> <input type="radio" name="selectGroup" id="selectGroup" value="none"/> </td>
+				<td> [% "PLUGIN_SYNCHRONIZER_NOSYNC" | string %] </td>
+			</tr>
+		[% IF nogroups == 1 %]
+			<tr>
+				<td colspan="2">
+					[% "PLUGIN_SYNCHRONIZER_NOGROUPS" | string %]
+				</td>
+			</tr>
+		[% END %]
+		</table>
 
-	<input type="submit" class="stdClick" value='[% "PLUGIN_SYNCHRONIZER_DOIT" | string %]' />
-    </form>
+		<input type="submit" class="stdClick" value='[% "PLUGIN_SYNCHRONIZER_DOIT" | string %]' />
+	</form>
+
+[% "PLUGIN_SYNCHRONIZER_SETUP" | string %]
 
 [% PROCESS pagefooter.html %]
