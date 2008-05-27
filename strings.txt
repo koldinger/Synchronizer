@@ -1,83 +1,110 @@
 PLUGIN_SYNCHRONIZER_NAME
 	EN	The Synchronizer
+	DA	Synkronisering.
 
 PLUGIN_SYNCHRONIZER_DESC
 	EN	Enhanced Player Synchronization Tool
+	DA	Forbedret synkroniserings værktæj
 
 PLUGIN_SYNCHRONIZER_SELECT_SYNCSET
 	EN	Select Sync Set
+	DA	Vælg synkroniserings zone
 
 PLUGIN_SYNCHRONIZER_STARTING
 	EN	The Synchronizer Starting
+	DA	Synkronisering starter
 
 PLUGIN_SYNCHRONIZER_DOIT
 	EN	Synchronize!
+	DA	Synkroniser!
 
 PLUGIN_SYNCHRONIZER_NEWGROUP
 	EN	Add a new Sync Set
+	DA	Tilføj ny zone.
 
 PLUGIN_SYNCHRONIZER_NEWGROUP_NAME
 	EN	New set name
+	DA	Nyt zonenavn
 
 PLUGIN_SYNCHRONIZER_NEWGROUP_DESC
 	EN	Enter the name of the new sync set, and press Apply to create it.  Then edit the sync set in the area above to get the details correct.
+	DA	Skriv navnet på zonen and tryk på Gem Indstillinger for oprette den. Ret derefter zonens indstillinger ovenfor for at få dem indstillet korrekt.
 
 PLUGIN_SYNCHRONIZER_DELETEGROUP
 	EN	Delete this Sync Set
+	DA	Slet denne zone
 
 PLUGIN_SYNCHRONIZER_DELETEGROUP_DESC
 	EN	Check this box and press Apply to permanently delete this Sync Set
+	DA	Vælg denne boks og tryk på Gem Indstillinger for at slette zonen.
 
 PLUGIN_SYNCHRONIZER_SELECT_MASTER
 	EN	Select player's to synchronize to.
+	DA	Vælg den afspiller der skal synkroniseres til.
 
 PLUGIN_SYNCHRONIZER_UNSYNCHRONIZED
 	EN	Unsynchronized (or Master)
+	DA	Fjern synkronisering (eller Master)
 
 PLUGIN_SYNCHRONIZER_NOSYNC
 	EN	Unsynchronize all players
+	DA	Fjern synkronisering for alle afspillere.
 
 PLUGIN_SYNCHRONIZER_ALLTOME
 	EN	Synchronize all players to this one
+	DA	Synkroniser alle afspillere til denne.
 
 PLUGIN_SYNCHRONIZER_SYNCING
 	EN	Synchronizing to %s
+	DA	Synkroniser til %s
 
 PLUGIN_SYNCHRONIZER_SYNCINGTOME
 	EN	Synchronizing all players to this one
+	DA	Synkroniser alle afspilere til denne.
 
 PLUGIN_SYNCHRONIZER_UNSYNCING
 	EN	Unsynchronizing all players
+	DA	Fjern synkronisering for alle afspillere.
 
 PLUGIN_SYNCHRONIZER_SELECT_THIS
 	EN	Synchronize to this Sync Set
+	DA	Synkroniser til denne zone.
 
 PLUGIN_SYNCHRONIZER_SELECT_DESC
 	EN	Check this radio button, and press Apply to synchronize to this set.  Any changes made on this page will be reflected in the Sync Set.
+	DA	Vælg dette og tryk på Gem Indstillinger for at synkroniser til denne zone. Alle ændringer på denne side vil blive vist i zonen.
 
 PLUGIN_SYNCHRONIZER_SYNCALL
 	EN	Synchronize all players to one master.
+	DA	Synkroniser alle afspillere til en master.
 
 PLUGIN_SYNCHRONIZER_SYNCALL_DESC
 	EN	Check this box to synchronize all players to a specified master.  Select the master player below.
+	DA	Vælg dette for at synkronisere alle afspiller til en udvalgt master. Vælg master fra nedenstående liste.
 
 PLUGIN_SYNCHRONIZE_SELECTMASTER
 	EN	Master player.
+	DA	Master afspiller.
 
 PLUGIN_SYNCHRONIZE_SELECTMASTER_DESC
 	EN	Select the player you wish to synchronize all players to.  If you aren't particular, just leave as is and the first player in the list will be used.
+	DA	Vælg den afspiller du ænsker at synkronisere alle afspillere til. Hvis du ikke vælger nogen så vælges den første afspiller i listen til master.
 
 PLUGIN_SYNCRONIZER_GENERAL
 	EN	Synchronization without using sets.
+	DA	Synkroniser uden at bruge zoner.
 
 PLUGIN_SYNCHRONIZER_POWERUP
 	EN	Power on players when synchronizing.
+	DA	Tænd afspillere ved synkronisering.
 
 PLUGIN_SYNCHRONIZER_POWERUP_DESC
 	EN	Check this to power on all players when starting synchronization.
+	DA	Vælg dette for at tænde alle afspillere når synkronisering startes.
 
 PLUGIN_SYNCHRONIZER_SETUP
-	EN	Create synchronization sets on Synchronizer settings page.  Under Settings, select the advanced tab, and the select The Synchronizer.  When groups are created, they will show up here.
+	EN  Create synchronization sets on Synchronizer settings page.  Under Settings, select the advanced tab, and the select The Synchronizer.  When groups are created, they will show up here.
 
 PLUGIN_SYNCHRONIZER_NOGROUPS
-	EN	No syncronization sets defined.
+	EN  No syncronization sets defined.
+
