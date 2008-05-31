@@ -103,8 +103,9 @@ PLUGIN_SYNCHRONIZER_POWERUP_DESC
 	DA	Vælg dette for at tænde alle afspillere når synkronisering startes.
 
 PLUGIN_SYNCHRONIZER_SETUP
-	EN  Create synchronization sets on Synchronizer settings page.  Under Settings, select the advanced tab, and the select The Synchronizer.  When groups are created, they will show up here.
+	EN	Create synchronization sets on Synchronizer settings page.  Under Settings, select the advanced tab, and the select The Synchronizer.  When groups are created, they will show up here.
+	DA	Opret synkroniserings zoner under indstillingerne for Synkronisering. Under indstillinger for SqueezeCenter vælg fanebladet Avanceret og vælg Synkronisering. Når zonerne er oprettet vil de blive vist her.
 
 PLUGIN_SYNCHRONIZER_NOGROUPS
-	EN  No syncronization sets defined.
-
+	EN	No synchronization sets defined.
+	DA	Der er ikke defineret nogen synkroniserings zoner.
