@@ -28,7 +28,7 @@ use Plugins::Synchronizer::Settings;
 
 # Export the version to the server
 use vars qw($VERSION);
-$VERSION = "0.6";
+$VERSION = "0.7";
 
 my %positions;
 
@@ -92,6 +92,17 @@ sub initPlugin {
 		$prefs->set('groups', \%groups);
 	}
 	Plugins::Synchronizer::Settings->new();
+
+	initCLI();
+	initJive();
+}
+
+sub initCLI {
+	$log->debug("Initializing CLI");
+	Slim::Control::Request::addDispatch(['syncTop'],[1, 1, 0, \&syncTop]);
+	Slim::Control::Request::addDispatch(['syncUnsync'],[1, 1, 0, \&syncUnsync]);
+	Slim::Control::Request::addDispatch(['syncSyncToMe'],[1, 1, 0, \&syncSyncToMe]);
+	Slim::Control::Request::addDispatch(['syncSyncToSet'],[1, 1, 1, \&syncSyncToSet]);
 }
 
 sub webPages {
@@ -154,6 +165,125 @@ sub selectGroup {
 }
 
 ####
+###  Funtions for JIVE
+####
+
+sub initJive {
+	$log->debug("Initializing JIVE");
+	my @menu = ({
+		text   => string('PLUGIN_SYNCHRONIZER_NAME'),
+		id     => 'pluginSynchronizer',
+		weight => 15,
+		actions => {
+			go => {
+				player => 0,
+				cmd      => [ 'syncTop' ],
+			}
+		},
+	});
+	Slim::Control::Jive::registerPluginMenu(\@menu, 'extras');
+}
+
+sub syncTop {
+	my $request = shift;
+	my $client = $request->client();
+
+	my @menu = ();
+
+
+    push @menu, {
+        text => string('PLUGIN_SYNCHRONIZER_ALLTONAME', $client->name()),
+        window => { menuStyle => 'album' },
+        actions  => {
+          do  => {
+              player => 0,
+              cmd    => [ 'syncSyncToMe' ],
+              params => {
+                menu => 'syncSyncToMe',
+              },
+          },
+        },
+    };
+
+	my $numSets = numSets();
+	for my $i (0 .. $numSets - 1) {
+		push @menu, {
+			text => syncSetName($i),
+			window => { menuStyle => 'album' },
+			actions  => {
+			  do  => {
+				  player => 0,
+				  cmd    => [ 'syncSyncToSet' ],
+				  params => {
+					menu => 'syncSyncToSet',
+					set  => $i,
+				  },
+			  },
+			},
+		};
+	}
+
+    push @menu, {
+        text => string('PLUGIN_SYNCHRONIZER_NOSYNC'),
+        window => { menuStyle => 'album' },
+        actions  => {
+          do  => {
+              player => 0,
+              cmd    => [ 'syncUnsync' ],
+              params => {
+                menu => 'syncUnsync',
+              },
+          },
+        },
+    };
+
+	my $numitems = scalar(@menu);
+
+	$request->addResult("count", $numitems);
+	$request->addResult("offset", 0);
+	my $cnt = 0;
+	for my $eachPreset (@menu[0..$#menu])
+	{
+		$request->setResultLoopHash('item_loop', $cnt, $eachPreset);
+		$cnt++;
+	}
+
+	$request->setStatusDone();
+}
+
+sub syncUnsync {
+	my $request = shift;
+	$log->debug("CLI/JIVE called Unsync");
+	unsyncAll();
+	$request->setStatusDone();
+}
+
+sub syncSyncToMe {
+	my $request = shift;
+	my $client = $request->client();
+	$log->debug("CLI/JIVE called SyncToMe " . $client->name());
+	
+	syncToMe($client);
+	$request->setStatusDone();
+}
+
+sub syncSyncToSet {
+	my $request = shift;
+	my $client = $request->client();
+	my $set = $request->getParam('set');
+	if ((!defined $set) || ($set < 0) || ($set >= numSets()))
+	{
+		$log->warn("Invalid set: $set");
+		$request->setStatusBadParams();
+		return;
+	}
+	#Data::Dump::dump($request);
+	$log->debug("CLI/JIVE called SyncToSet " . $set . " " . syncSetName($set));
+	synchronizeSet($set);
+	$request->setStatusDone();
+}
+
+####
 ###  Functions that do the actual processing
 ###$
 
@@ -162,9 +292,9 @@ sub syncSetName {
 	my $numSets = numSets();
 	if ($setNum < $numSets)
 	{
-	my $groups = $prefs->get('groups');
-	my @keys = sort {$a <=> $b} keys % {$groups};
-	return $groups->{$keys[$setNum]};
+		my $groups = $prefs->get('groups');
+		my @keys = sort {$a <=> $b} keys % {$groups};
+		return $groups->{$keys[$setNum]};
 	}
 	return string('PLUGIN_SYNCHRONIZER_NOSYNC') if ($setNum == $numSets);
 	return string('PLUGIN_SYNCHRONIZER_ALLTOME') if ($setNum == $numSets + 1);
@@ -219,7 +349,7 @@ sub synchronizeGroup {
 		if (defined $masterId) {
 			my $master = Slim::Player::Client::getClient($masterId);
 			if (defined $master) {
-			$log->debug("Synchronizing " . $client->name() . " to " . $master->name());
+				$log->debug("Synchronizing " . $client->name() . " to " . $master->name());
 			Slim::Player::Sync::sync($client, $master);
 			}
 		}

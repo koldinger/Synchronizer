@@ -54,6 +54,10 @@ PLUGIN_SYNCHRONIZER_ALLTOME
 	EN	Synchronize all players to this one
 	DA	Synkroniser alle afspillere til denne.
 
+PLUGIN_SYNCHRONIZER_ALLTONAME
+	EN	Sync all to %s
+	DA	Synkroniser alle afspillere %s.
+
 PLUGIN_SYNCHRONIZER_SYNCING
 	EN	Synchronizing to %s
 	DA	Synkroniser til %s
