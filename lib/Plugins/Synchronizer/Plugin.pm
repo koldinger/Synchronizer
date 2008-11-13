@@ -350,7 +350,8 @@ sub synchronizeGroup {
 			my $master = Slim::Player::Client::getClient($masterId);
 			if (defined $master) {
 				$log->debug("Synchronizing " . $client->name() . " to " . $master->name());
-			Slim::Player::Sync::sync($client, $master);
+				#Slim::Player::Sync::sync($client, $master);
+				$master->execute( [ 'sync', $client->id ] );
 			}
 		}
 	}
@@ -361,7 +362,8 @@ sub unsyncAll {
 	foreach my $client (Slim::Player::Client::clients())
 	{
 		$log->debug("Unsynchronizing " . $client->name());
-		Slim::Player::Sync::unsync($client);
+		#Slim::Player::Sync::unsync($client);
+		$client->execute( [ 'sync', '-' ] );
 	}
 }
 
@@ -376,7 +378,8 @@ sub syncToMe {
 		if ($client ne $buddy) {
 			$log->debug("Synchronizing " . $buddy->name() . " to " .  $client->name() . " PowerON: " . $powerOn);
 			$buddy->power(1) if ($powerOn);
-			Slim::Player::Sync::sync($buddy, $client);
+			#Slim::Player::Sync::sync($buddy, $client);
+			$client->execute( [ 'sync', $buddy->id ] );
 		}
 	}
 }
