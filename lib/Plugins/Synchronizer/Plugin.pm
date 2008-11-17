@@ -42,6 +42,9 @@ sub getDisplayName() {
 	return 'PLUGIN_SYNCHRONIZER_NAME';
 }
 
+my @syncGroups;
+my @unsyncPlayers;
+
 ##################################################
 ### Section 2. Your variables and code go here ###
 ##################################################
@@ -141,6 +144,11 @@ sub webHandleIndex {
 	$params->{'groups'} = $prefs->get('groups');
 	$params->{'players'} = \@playerList;
 	$params->{'nogroups'} = 1 if ($params->{'groups'} == 0);
+
+    makeSyncList();
+    $params->{'syncGroups'} = \@syncGroups;
+	makeUnsyncList();
+	$params->{'unsyncedPlayers'} = \@unsyncPlayers;
 
 	return Slim::Web::HTTP::filltemplatefile('plugins/Synchronizer/index.html', $params);
 }
@@ -355,6 +363,7 @@ sub synchronizeGroup {
 			}
 		}
 	}
+
 }
 
 sub unsyncAll {
@@ -397,6 +406,27 @@ sub lines {
 sub numSets {
 	my $sets = keys(% {$prefs->get('groups')});
 	return ($sets);
+}
+
+sub makeSyncList {
+    @syncGroups = ();
+    foreach my $client (Slim::Player::Client::clients()) {
+        if (Slim::Player::Sync::isMaster($client)) {
+            my $groupName = Slim::Player::Sync::syncname($client);
+            $log->debug($client->name() . "Group: $groupName");
+            push @syncGroups, $groupName;
+        }
+    }
+}
+
+sub makeUnsyncList {
+    @unsyncPlayers = ();
+    foreach my $client (Slim::Player::Client::clients()) {
+        if (!$client->isSynced()) {
+            $log->debug("Unysnced: " . $client->name());
+            push @unsyncPlayers, $client->name();
+        }
+    }
 }
 
 #sub shutdownPlugin {

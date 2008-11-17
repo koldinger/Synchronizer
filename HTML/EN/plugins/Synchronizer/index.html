@@ -46,5 +46,23 @@
 	</form>
 
 [% "PLUGIN_SYNCHRONIZER_SETUP" | string %]
+<hr>
+<h1>
+[% "PLUGIN_SYNCHRONIZER_CURRENT_STATUS" | string %]
+</h1>
+<br>
+<b> [% "PLUGIN_SYNCHRONIZER_ACTIVE_SYNCGROUPS" | string %] </b>
+<ul>
+[% FOREACH g IN syncGroups %]
+	<li> [% g %] </li>
+[% END %]
+</ul>
+<br>
+<b> [% "PLUGIN_SYNCHRONIZER_UNSYNCHRONIZED_PLAYERS" | string %] </b>
+<ul>
+[% FOREACH p IN unsyncedPlayers %]
+	<li> [% p %] </li>
+[% END %]
+</ul>
 
 [% PROCESS pagefooter.html %]

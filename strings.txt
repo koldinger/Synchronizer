@@ -113,3 +113,13 @@ PLUGIN_SYNCHRONIZER_SETUP
 PLUGIN_SYNCHRONIZER_NOGROUPS
 	EN	No synchronization sets defined.
 	DA	Der er ikke defineret nogen synkroniserings zoner.
+
+PLUGIN_SYNCHRONIZER_CURRENT_STATUS
+	EN	Current Synchronization Status
+
+PLUGIN_SYNCHRONIZER_ACTIVE_SYNCGROUPS
+	EN	Active Sync Groups
+
+PLUGIN_SYNCHRONIZER_UNSYNCHRONIZED_PLAYERS
+	EN	Unsynchronized Players
+
