@@ -84,7 +84,7 @@ my %functions = (
 sub initPlugin {
 	my $class = shift;
 	$class->SUPER::initPlugin(@_);
-	$log->info(string('PLUGIN_SYNCHRONIZER_STARTING') . " -- $VERSION");
+	$log->info(string('PLUGIN_SYNCHRONIZER_STARTING'));
 	if (!defined($prefs->get('groups')))
 	{
 		my %groups;
@@ -426,7 +426,7 @@ sub makeUnsyncList {
 }
 
 #sub shutdownPlugin {
-	#$log->info(string('PLUGIN_SYNCHRONIZER_STOPPING') . " -- $VERSION");
+	#$log->info(string('PLUGIN_SYNCHRONIZER_STOPPING') . ");
 #}
 	
 ################################################
