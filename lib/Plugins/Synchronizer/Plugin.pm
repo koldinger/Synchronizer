@@ -26,10 +26,6 @@ use Slim::Player::Sync;
 
 use Plugins::Synchronizer::Settings;
 
-# Export the version to the server
-use vars qw($VERSION);
-$VERSION = "0.8";
-
 my %positions;
 
 my $log = Slim::Utils::Log->addLogCategory({
