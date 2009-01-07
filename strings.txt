@@ -1,125 +1,157 @@
 PLUGIN_SYNCHRONIZER_NAME
 	EN	The Synchronizer
+	DE	Synchronisations-Szenen
 	DA	Synkronisering.
 
 PLUGIN_SYNCHRONIZER_DESC
 	EN	Enhanced Player Synchronization Tool
+	DE	Erweitertes Synchronisations-Menü
 	DA	Forbedret synkroniserings værktæj
 
 PLUGIN_SYNCHRONIZER_SELECT_SYNCSET
 	EN	Select Sync Set
+	DE	Wählen Sie die Sync-Szene
 	DA	Vælg synkroniserings zone
 
 PLUGIN_SYNCHRONIZER_STARTING
 	EN	The Synchronizer Starting
+	DE	Plugin 'Synchronisations-Szenen' startet
 	DA	Synkronisering starter
 
 PLUGIN_SYNCHRONIZER_DOIT
 	EN	Synchronize!
+	DE	Szene an!
 	DA	Synkroniser!
 
 PLUGIN_SYNCHRONIZER_NEWGROUP
 	EN	Add a new Sync Set
+	DE	Neue Szene schaffen
 	DA	Tilføj ny zone.
 
 PLUGIN_SYNCHRONIZER_NEWGROUP_NAME
 	EN	New set name
+	DE	Name der neuen Szene
 	DA	Nyt zonenavn
 
 PLUGIN_SYNCHRONIZER_NEWGROUP_DESC
 	EN	Enter the name of the new sync set, and press Apply to create it.  Then edit the sync set in the area above to get the details correct.
+	DE	Geben Sie den Namen der neuen Szene ein und drücken Sie Übernehmen um sie zu erschaffen.  Denn stellen Sie die Szene ein, indem Sie in den oberen Bereich die Details eingeben.
 	DA	Skriv navnet på zonen and tryk på Gem Indstillinger for oprette den. Ret derefter zonens indstillinger ovenfor for at få dem indstillet korrekt.
 
 PLUGIN_SYNCHRONIZER_DELETEGROUP
 	EN	Delete this Sync Set
+	DE	Diese Szene löschen
 	DA	Slet denne zone
 
 PLUGIN_SYNCHRONIZER_DELETEGROUP_DESC
 	EN	Check this box and press Apply to permanently delete this Sync Set
+	DE	Kästchen markieren und Übernehmen drücken, um die Szene endgültig zu löschen
 	DA	Vælg denne boks og tryk på Gem Indstillinger for at slette zonen.
 
 PLUGIN_SYNCHRONIZER_SELECT_MASTER
 	EN	Select player's to synchronize to.
+	DE	Wählen Sie Geräte, auf die synchronisiert werden soll.
 	DA	Vælg den afspiller der skal synkroniseres til.
 
 PLUGIN_SYNCHRONIZER_UNSYNCHRONIZED
 	EN	Unsynchronized (or Master)
+	DE	nicht synchronisiert (oder Chef-Gerät)
 	DA	Fjern synkronisering (eller Master)
 
 PLUGIN_SYNCHRONIZER_NOSYNC
 	EN	Unsynchronize all players
+	DE	Synchronisation aus für Alle
 	DA	Fjern synkronisering for alle afspillere.
 
 PLUGIN_SYNCHRONIZER_ALLTOME
 	EN	Synchronize all players to this one
+	DE	Alle mit diesem synchronisieren
 	DA	Synkroniser alle afspillere til denne.
 
 PLUGIN_SYNCHRONIZER_ALLTONAME
 	EN	Sync all to %s
+	DE	Synchronisiere alle mit %s
 	DA	Synkroniser alle afspillere %s.
 
 PLUGIN_SYNCHRONIZER_SYNCING
 	EN	Synchronizing to %s
+	DE	Synchronisiere nach %s
 	DA	Synkroniser til %s
 
 PLUGIN_SYNCHRONIZER_SYNCINGTOME
 	EN	Synchronizing all players to this one
+	DE	Synchronisiere alle Geräte mit diesem
 	DA	Synkroniser alle afspilere til denne.
 
 PLUGIN_SYNCHRONIZER_UNSYNCING
 	EN	Unsynchronizing all players
+	EN	Synchronisation wird aufgehoben
 	DA	Fjern synkronisering for alle afspillere.
 
 PLUGIN_SYNCHRONIZER_SELECT_THIS
 	EN	Synchronize to this Sync Set
+	DE	Synchronisiere mit dieser Szene
 	DA	Synkroniser til denne zone.
 
 PLUGIN_SYNCHRONIZER_SELECT_DESC
 	EN	Check this radio button, and press Apply to synchronize to this set.  Any changes made on this page will be reflected in the Sync Set.
+	DE	Kästchen markieren und Übernehmen drücken, um mit dieser Szene zu synchronisieren.  Alle Veränderungen auf dieser Seite werden in die Szene integriert.
 	DA	Vælg dette og tryk på Gem Indstillinger for at synkroniser til denne zone. Alle ændringer på denne side vil blive vist i zonen.
 
 PLUGIN_SYNCHRONIZER_SYNCALL
 	EN	Synchronize all players to one master.
+	DE	Synchronisiere alle Geräte mit diesem als Chef-Gerät.
 	DA	Synkroniser alle afspillere til en master.
 
 PLUGIN_SYNCHRONIZER_SYNCALL_DESC
 	EN	Check this box to synchronize all players to a specified master.  Select the master player below.
+	DE	Markieren Sie dieses Kästchen um alle Geräte mit einem Chef-Gerät zu synchronisieren.  Wählen Sie unten das Chef-Gerät aus.
 	DA	Vælg dette for at synkronisere alle afspiller til en udvalgt master. Vælg master fra nedenstående liste.
 
 PLUGIN_SYNCHRONIZE_SELECTMASTER
 	EN	Master player.
+	DE	Chef-Gerät.
 	DA	Master afspiller.
 
 PLUGIN_SYNCHRONIZE_SELECTMASTER_DESC
 	EN	Select the player you wish to synchronize all players to.  If you aren't particular, just leave as is and the first player in the list will be used.
+	DE	Wählen Die das Chef-Gerät, das die anderen Geräte mit Musik versorgen soll.  Wenn Sie nichts eintragen, wird das erste Gerät in der Liste benutzt.
 	DA	Vælg den afspiller du ænsker at synkronisere alle afspillere til. Hvis du ikke vælger nogen så vælges den første afspiller i listen til master.
 
 PLUGIN_SYNCRONIZER_GENERAL
 	EN	Synchronization without using sets.
+	DE	Synchronisierung ohne Szenen.
 	DA	Synkroniser uden at bruge zoner.
 
 PLUGIN_SYNCHRONIZER_POWERUP
 	EN	Power on players when synchronizing.
+	DE	Geräte einschalten, wenn Synchronisierung läuft.
 	DA	Tænd afspillere ved synkronisering.
 
 PLUGIN_SYNCHRONIZER_POWERUP_DESC
 	EN	Check this to power on all players when starting synchronization.
+	DE	Markieren, damit alle Geräte eingeschaltet werden, sobald Synchronisation gestartet wird.
 	DA	Vælg dette for at tænde alle afspillere når synkronisering startes.
 
 PLUGIN_SYNCHRONIZER_SETUP
 	EN	Create synchronization sets on Synchronizer settings page.  Under Settings, select the advanced tab, and the select The Synchronizer.  When groups are created, they will show up here.
+	DE	Erstellt Szenen auf der Einstellungs-Seite von Synchronizer.  Unter Einstellungen wählen Sie Schaltfläche Erweitert, dann wählen Sie Synchronisation-Szenen.  Sobald Gruppen erstellt wurden, sind sie hier zu sehen.
 	DA	Opret synkroniserings zoner under indstillingerne for Synkronisering. Under indstillinger for SqueezeCenter vælg fanebladet Avanceret og vælg Synkronisering. Når zonerne er oprettet vil de blive vist her.
 
 PLUGIN_SYNCHRONIZER_NOGROUPS
 	EN	No synchronization sets defined.
+	DE	Keine Synchronisations-Szenen vorhanden.
 	DA	Der er ikke defineret nogen synkroniserings zoner.
 
 PLUGIN_SYNCHRONIZER_CURRENT_STATUS
 	EN	Current Synchronization Status
+	DE	Aktueller Synchronisations-Status
 
 PLUGIN_SYNCHRONIZER_ACTIVE_SYNCGROUPS
 	EN	Active Sync Groups
+	DE	Aktive Szenen
 
 PLUGIN_SYNCHRONIZER_UNSYNCHRONIZED_PLAYERS
 	EN	Unsynchronized Players
+	DE	Unsynchronisierte Geräte
 
