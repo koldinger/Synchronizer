@@ -146,12 +146,15 @@ PLUGIN_SYNCHRONIZER_NOGROUPS
 PLUGIN_SYNCHRONIZER_CURRENT_STATUS
 	EN	Current Synchronization Status
 	DE	Aktueller Synchronisations-Status
+	DA	Nuværende synkroniseringsstatus
 
 PLUGIN_SYNCHRONIZER_ACTIVE_SYNCGROUPS
 	EN	Active Sync Groups
 	DE	Aktive Szenen
+	DA	Aktiv zone
 
 PLUGIN_SYNCHRONIZER_UNSYNCHRONIZED_PLAYERS
 	EN	Unsynchronized Players
 	DE	Unsynchronisierte Geräte
+	DA	Ikke synkroniserede afspillere.
 
