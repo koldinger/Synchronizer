@@ -1,4 +1,4 @@
-﻿PLUGIN_SYNCHRONIZER_NAME
+PLUGIN_SYNCHRONIZER_NAME
 	EN	The Synchronizer
 	DE	Synchronisations-Szenen
 	DA	Synkronisering.
