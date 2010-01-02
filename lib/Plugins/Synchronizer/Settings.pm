@@ -18,11 +18,11 @@ my $log   = logger('plugin.synchronizer');
 my @playerList;
 
 sub name {
-    return Slim::Web::HTTP::protectName('PLUGIN_SYNCHRONIZER_NAME');
+    return Slim::Web::HTTP::CSRF->protectName('PLUGIN_SYNCHRONIZER_NAME');
 }
 
 sub page {
-    return Slim::Web::HTTP::protectURI('plugins/Synchronizer/settings/basic.html');
+    return Slim::Web::HTTP::CSRF->protectURI('plugins/Synchronizer/settings/basic.html');
 }
 
 sub prefs {

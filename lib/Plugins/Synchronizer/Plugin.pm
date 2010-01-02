@@ -109,10 +109,10 @@ sub webPages {
 
 	my $index = 'plugins/Synchronizer/index.html';
 
-	Slim::Web::HTTP::protectURI($index);
+	Slim::Web::HTTP::CSRF->protectURI($index);
 
 	Slim::Web::Pages->addPageLinks("plugins", { 'PLUGIN_SYNCHRONIZER_NAME' => $index } );
-	Slim::Web::HTTP::addPageFunction($index, \&webHandleIndex);
+	Slim::Web::Pages->addPageFunction($index, \&webHandleIndex);
 }
 
 ####
