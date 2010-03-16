@@ -347,14 +347,18 @@ sub synchronizeGroup {
 
 	foreach my $client (Slim::Player::Client::clients())
 	{
-		$client->power(1) if ($powerOn);
+		# $client->power(1) if ($powerOn);
 		my $masterId = $prefs->client($client)->get($group) || 0;;
 		$log->debug("Synchronizing " . $client->name() . " SetID " . $group . " to MasterID " .  $masterId);
 		if (defined $masterId) {
+			#$master->power(1) if ($powerOn);
+			$master->execute( ['power', 1]) if ($powerOn);
 			my $master = Slim::Player::Client::getClient($masterId);
 			if (defined $master) {
 				$log->debug("Synchronizing " . $client->name() . " to " . $master->name());
 				#Slim::Player::Sync::sync($client, $master);
+				#$client->power(1) if ($powerOn);
+				$client->execute( ['power', 1]) if ($powerOn);
 				$master->execute( [ 'sync', $client->id ] );
 			}
 		}
@@ -377,12 +381,14 @@ sub syncToMe {
 	my $powerOn = $prefs->get('powerup');
 	$log->debug("Syncing everyone to " . $client->name());
 	# unsyncAll();
-	$client->power(1) if ($powerOn);
+	#$client->power(1) if ($powerOn);
+	$client->execute( ['power', 1]) if ($powerOn);
 	foreach my $buddy (Slim::Player::Client::clients())
 	{
 		if ($client ne $buddy) {
 			$log->debug("Synchronizing " . $buddy->name() . " to " .  $client->name() . " PowerON: " . $powerOn);
-			$buddy->power(1) if ($powerOn);
+			#$buddy->power(1) if ($powerOn);
+			$buddy->execute( ['power', 1]) if ($powerOn);
 			#Slim::Player::Sync::sync($buddy, $client);
 			$client->execute( [ 'sync', $buddy->id ] );
 		}
