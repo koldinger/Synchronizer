@@ -191,3 +191,8 @@ PLUGIN_SYNCHRONIZER_UNSYNCHRONIZED_PLAYERS
 	SV	Osynkade spelare
 
 
+PLUGIN_SYNCHRONIZER_CLONEGROUP
+	EN	Save current sync settings
+
+PLUGIN_SYNCHRONIZER_CLONEGROUP_DESC
+	EN	Create a new sync set, based on the current synchronization settings in the system.

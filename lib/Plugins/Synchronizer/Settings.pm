@@ -35,10 +35,6 @@ sub handler {
     if ($params->{'saveSettings'})
     {
         $log->debug("Synchronizer::Settings->handler() save settings");
-        if ((defined $params->{'newGroupName'}) && ($params->{'newGroupName'} ne ''))
-        {
-            addGroup($params);
-        }
         my %groups = % { $prefs->get('groups') } if (defined $prefs->get('groups'));
         foreach my $group (keys %groups) 
         {
@@ -50,12 +46,23 @@ sub handler {
             } else {
                 foreach my $client (Slim::Player::Client::clients()) {
                     my $tag = "sync.$group." . $client->id();
+					$log->debug("Setting: Group: " . $group . " Client: " . $client->name . " Value: " . $params->{$tag});
                     $prefs->client($client)->set($group, $params->{$tag});
                 }
             }
         }
+        if ((defined $params->{'newGroupName'}) && ($params->{'newGroupName'} ne ''))
+        {
+            addGroup($params->{'newGroupName'});
+        }
+        if ((defined $params->{'cloneGroupName'}) && ($params->{'cloneGroupName'} ne ''))
+        {
+            my $newGroup = addGroup($params->{'cloneGroupName'});
+			cloneSettings($newGroup);
+        }
     }
     $params->{'newGroupName'} = undef;
+    $params->{'cloneGroupName'} = undef;
     $params->{'groups'} = $prefs->get('groups');
     makePlayerList();
     $params->{'players'} = \@playerList;
@@ -64,8 +71,7 @@ sub handler {
 }
 
 sub addGroup {
-    my $params = shift;
-
+	my $name   = shift;
     my %groups;
 
     ## Compute the ID of the new group
@@ -74,10 +80,11 @@ sub addGroup {
 
     %groups = % { $prefs->get('groups') };
 
-    $groups{$lastID} = $params->{'newGroupName'};
+    $groups{$lastID} = $name;
 
-    $log->debug("Adding group " . $params->{'newGroupName'} . "  Code: " . $lastID);
+    $log->debug("Adding group " . $name . "  Code: " . $lastID);
     $prefs->set('groups', \%groups);
+	return $lastID;
 }
 
 sub makePlayerList {
@@ -93,7 +100,6 @@ sub makePlayerList {
     }
 }
 
-
 sub deleteGroup {
     my $del = shift;
 
@@ -107,4 +113,16 @@ sub deleteGroup {
         $prefs->client($client)->remove($del);
     }
 }
+
+sub cloneSettings {
+    my $group = shift;
+    foreach my $client (Slim::Player::Client::clients()) {
+        my $master = 0;
+        $master = $client->master()->id() if ($client->isSynced());
+        $log->debug("Setting Group " . $group . " Master for " . $client->name() . " to " . $master);
+        $prefs->client($client)->set($group, $master);
+		# $prefs->client($client)->set($group, $params->{$tag});
+    }
+}
+
 1;
