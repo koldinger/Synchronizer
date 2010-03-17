@@ -53,16 +53,12 @@ sub handler {
         }
         if ((defined $params->{'newGroupName'}) && ($params->{'newGroupName'} ne ''))
         {
-            addGroup($params->{'newGroupName'});
-        }
-        if ((defined $params->{'cloneGroupName'}) && ($params->{'cloneGroupName'} ne ''))
-        {
-            my $newGroup = addGroup($params->{'cloneGroupName'});
-			cloneSettings($newGroup);
+            my $newGroup = addGroup($params->{'newGroupName'});
+			cloneSettings($newGroup) if ($params->{'cloneSettings'});
         }
     }
     $params->{'newGroupName'} = undef;
-    $params->{'cloneGroupName'} = undef;
+	$params->{'cloneSettings'} = undef;
     $params->{'groups'} = $prefs->get('groups');
     makePlayerList();
     $params->{'players'} = \@playerList;
@@ -119,7 +115,7 @@ sub cloneSettings {
     foreach my $client (Slim::Player::Client::clients()) {
         my $master = 0;
         $master = $client->master()->id() if ($client->isSynced());
-        $log->debug("Setting Group " . $group . " Master for " . $client->name() . " to " . $master);
+        $log->debug("Cloning settings: Group " . $group . " Master for " . $client->name() . " to " . $master);
         $prefs->client($client)->set($group, $master);
 		# $prefs->client($client)->set($group, $params->{$tag});
     }
