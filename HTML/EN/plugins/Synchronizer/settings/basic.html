@@ -38,7 +38,7 @@
 		<input type="text" class="stdedit" name="newGroupName" id="newGroupName" value="[% newGroupName %]" size="20" />
 	    [% END %]
 	    [% WRAPPER setting title="PLUGIN_SYNCHRONIZER_CLONEGROUP" desc="PLUGIN_SYNCHRONIZER_CLONEGROUP_DESC" %]
-		<input type="text" class="stdedit" name="cloneGroupName" id="cloneGroupName" value="[% cloneGroupName %]" size="20" />
+		<input type="checkbox" name="cloneSettings" id="cloneSettings" value="1" />
 	    [% END %]
     [% END %]
 [% PROCESS settings/footer.html %]
