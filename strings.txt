@@ -192,7 +192,7 @@ PLUGIN_SYNCHRONIZER_UNSYNCHRONIZED_PLAYERS
 
 
 PLUGIN_SYNCHRONIZER_CLONEGROUP
-	EN	Save current sync settings
+	EN	Create group with current sync settings.
 
 PLUGIN_SYNCHRONIZER_CLONEGROUP_DESC
-	EN	Create a new sync set, based on the current synchronization settings in the system.
+	EN	If this box is checked when you create a new group, it will be populated with the settings from the current sync configuration in your system.  If unchecked, all Squeezeboxes will start as unsynchronized.
