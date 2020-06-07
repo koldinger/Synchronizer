@@ -1,6 +1,12 @@
+The Synchronizer is a plugin for SqueezeboxServer (also known as the Logitech Media Server) 
+to allow syncronizing multiple players together in a single step, and predefining sets of
+synchronized players that can be activated.
+
 Thanks to the following:
 Danish translations by Kurt Poulsen.
 German translations by Christian Sekot.
 Swedish translations by Jakob Asell.
 
 Also, everybody who's reported bugs.
+
+Imported from CVS.
